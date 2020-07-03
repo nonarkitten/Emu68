@@ -34,7 +34,7 @@ LDFLAGS := -static -lrt -s \
 
 all: premake $(BBB_OBJECTS)
 	$(CC) -s $(BBB_OBJECTS) -o $(APPNAME).elf $(LDFLAGS)
-	$(OBJCOPY) -O binary $(APPNAME).elf $(APPNAME).elf
+	$(OBJCOPY) -O binary $(APPNAME).elf $(APPNAME).bin
 	
 premake:
 	@mkdir -p build
