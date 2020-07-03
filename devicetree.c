@@ -11,7 +11,7 @@
 #include "support.h"
 #include "devicetree.h"
 #include "tlsf.h"
-#include "DuffCopy.h"
+#include "duffcopy.h"
 
 #define NULL ((void*)0)
 
