@@ -12,23 +12,34 @@
 
 #include "support.h"
 
-static inline void waitSerOUT(void *io_base) {
-	(void)io_base;
+
+
+static void waitSerOUT(void *io_reg) {
+	while(*((uint8_t*)io_reg + 0x68) == 63) continue;
 }
 
-static inline void putByte(void *io_base, char chr) {
-	(void)io_base;
-	(void)chr;
+static void putByte(void *io_reg, char chr) {
+	waitSerOUT(io_reg);
+	if(chr == '\n') {
+		*(uint8_t*)io_reg = '\r';
+		waitSerOUT(io_reg);
+	}
+	
+	*(uint8_t*)io_reg = chr;
+	
 }
 
 void kprintf(const char * restrict format, ...) {
-	(void)format;
+    va_list v;
+    va_start(v, format);
+    vkprintf_pc(putByte, (void*)0x44E09000, format, v);
+    va_end(v);
 }
 
 void vkprintf(const char * restrict format, va_list args) {
-	(void)format;
-	(void)args;
+    vkprintf_pc(putByte, (void*)0x44E09000, format, args);
 }
 
 void setup_serial(void) {
+	// assume uboot has done this for us
 }
