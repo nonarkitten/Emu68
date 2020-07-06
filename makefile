@@ -22,7 +22,7 @@ COMMON_FLAGS := $(EXTRA_FLAGS) -Iinclude -mbig-endian -marm -mcpu=cortex-a8 -Os 
 
 CFLAGS := $(COMMON_FLAGS) $(DEFINES) -std=gnu11
 CXXFLAGS:= $(COMMON_FLAGS) $(DEFINES) -std=c++11
-LDFLAGS := -static -lrt -s \
+LDFLAGS := -static -s \
 	-nostdlib -nostartfiles \
 	-T ldscript-be.lds \
 	-Wl,--Map=$@.map \
